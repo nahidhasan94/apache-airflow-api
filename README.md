@@ -166,4 +166,91 @@ curl -X 'GET' \
   "timezone": "Timezone('UTC')"
 }
 ```
-  
+### 2) Get tasks of DAG.
+
+**request:**
+```
+curl -X 'GET' \
+  'http://localhost:8080/api/v1/dags/example_trigger_target_dag/tasks' \
+  -H 'accept: application/json'
+```
+ **response:**
+```
+{
+  "tasks": [
+    {
+      "class_ref": {
+        "class_name": "BashOperator",
+        "module_path": "airflow.operators.bash"
+      },
+      "depends_on_past": false,
+      "downstream_task_ids": [],
+      "end_date": null,
+      "execution_timeout": null,
+      "extra_links": [],
+      "owner": "airflow",
+      "params": {},
+      "pool": "default_pool",
+      "pool_slots": 1,
+      "priority_weight": 1,
+      "queue": "default",
+      "retries": 0,
+      "retry_delay": {
+        "__type": "TimeDelta",
+        "days": 0,
+        "microseconds": 0,
+        "seconds": 300
+      },
+      "retry_exponential_backoff": false,
+      "start_date": "2021-01-01T00:00:00+00:00",
+      "task_id": "bash_task",
+      "template_fields": [
+        "bash_command",
+        "env"
+      ],
+      "trigger_rule": "all_success",
+      "ui_color": "#f0ede4",
+      "ui_fgcolor": "#000",
+      "wait_for_downstream": false,
+      "weight_rule": "downstream"
+    },
+    {
+      "class_ref": {
+        "class_name": "_PythonDecoratedOperator",
+        "module_path": "airflow.decorators.python"
+      },
+      "depends_on_past": false,
+      "downstream_task_ids": [],
+      "end_date": null,
+      "execution_timeout": null,
+      "extra_links": [],
+      "owner": "airflow",
+      "params": {},
+      "pool": "default_pool",
+      "pool_slots": 1,
+      "priority_weight": 1,
+      "queue": "default",
+      "retries": 0,
+      "retry_delay": {
+        "__type": "TimeDelta",
+        "days": 0,
+        "microseconds": 0,
+        "seconds": 300
+      },
+      "retry_exponential_backoff": false,
+      "start_date": "2021-01-01T00:00:00+00:00",
+      "task_id": "run_this",
+      "template_fields": [
+        "op_args",
+        "op_kwargs"
+      ],
+      "trigger_rule": "all_success",
+      "ui_color": "#ffefeb",
+      "ui_fgcolor": "#000",
+      "wait_for_downstream": false,
+      "weight_rule": "downstream"
+    }
+  ],
+  "total_entries": 2
+}
+```
