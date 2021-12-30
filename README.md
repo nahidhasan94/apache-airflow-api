@@ -4,8 +4,8 @@
 **DAG Run API 
 1) Trigger a new DAG run with Config.
 
-***request:
-
+**request:**
+```
 curl -X 'POST' \
   'http://localhost:8080/api/v1/dags/example_trigger_target_dag/dagRuns' \
   -H 'accept: application/json' \
@@ -15,15 +15,15 @@ curl -X 'POST' \
   "execution_date": "2019-08-24T14:15:22Z",
   "conf": "message":"nahid"}
 }'
-
-***response:
-
+```
+**response:**
+```
 {
   "conf": {
     "message": "nahid"
   },
   "dag_id": "example_trigger_target_dag",
-  "dag_run_id": "manual__2021-12-30T07:54:07.429904+00:00",
+  "dag_run_id": "mydagrunid",
   "end_date": null,
   "execution_date": "2021-12-30T07:54:07.429904+00:00",
   "external_trigger": true,
@@ -31,17 +31,17 @@ curl -X 'POST' \
   "start_date": null,
   "state": "queued"
 }
-
+```
 2) Get List of Dag Run
 
-***request:
-
+**request:**
+```
 curl -X 'GET' \
   'http://localhost:8080/api/v1/dags/example_trigger_target_dag/dagRuns?limit=100' \
   -H 'accept: application/json'
-
-***response: 
-
+```
+**response: **
+```
 {
   "dag_runs": [
     {
@@ -99,3 +99,4 @@ curl -X 'GET' \
   ],
   "total_entries": 4
 }
+```
