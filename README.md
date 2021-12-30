@@ -40,7 +40,7 @@ curl -X 'GET' \
   'http://localhost:8080/api/v1/dags/example_trigger_target_dag/dagRuns?limit=100' \
   -H 'accept: application/json'
 ```
-**response: **
+**response:**
 ```
 {
   "dag_runs": [
