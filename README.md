@@ -88,7 +88,7 @@ curl -X 'GET' \
         "message": "nahid"
       },
       "dag_id": "example_trigger_target_dag",
-      "dag_run_id": "manual__2021-12-30T07:55:27.528053+00:00",
+      "dag_run_id": "mydagrunid",
       "end_date": "2021-12-30T07:55:34.517443+00:00",
       "execution_date": "2021-12-30T07:55:27.528053+00:00",
       "external_trigger": true,
@@ -100,3 +100,70 @@ curl -X 'GET' \
   "total_entries": 4
 }
 ```
+
+### 3) Get a Dag Run
+
+**request:**
+```
+curl -X 'GET' \
+  'http://localhost:8080/api/v1/dags/example_trigger_target_dag/dagRuns/mydagrunid' \
+  -H 'accept: application/json'
+```
+**response:**
+```
+{
+  "conf": {
+    "message": "nahid"
+  },
+  "dag_id": "example_trigger_target_dag",
+  "dag_run_id": "mydagrunid",
+  "end_date": "2021-12-30T09:51:04.325511+00:00",
+  "execution_date": "2021-12-30T09:50:57.714516+00:00",
+  "external_trigger": true,
+  "logical_date": "2021-12-30T09:50:57.714516+00:00",
+  "start_date": "2021-12-30T09:50:58.337474+00:00",
+  "state": "success"
+}
+```
+
+## DAG API
+### 1) Get a Simplified Representation of DAG.
+
+**request:**
+```
+curl -X 'GET' \
+  'http://localhost:8080/api/v1/dags/example_trigger_target_dag/details' \
+  -H 'accept: application/json'
+ ```
+ **response:**
+```
+{
+  "catchup": false,
+  "concurrency": 16,
+  "dag_id": "example_trigger_target_dag",
+  "dag_run_timeout": null,
+  "default_view": "tree",
+  "description": null,
+  "doc_md": null,
+  "file_token": "Ii9vcHQvYWlyZmxvdy9kYWdzL3BhcmFtZGFnLnB5Ig.hhWlYRe7zNQ_VEX9RUv6afx1pbs",
+  "fileloc": "/opt/airflow/dags/paramdag.py",
+  "is_active": true,
+  "is_paused": false,
+  "is_subdag": false,
+  "max_active_tasks": 16,
+  "orientation": "LR",
+  "owners": [
+    "airflow"
+  ],
+  "params": {},
+  "schedule_interval": null,
+  "start_date": "2021-01-01T00:00:00+00:00",
+  "tags": [
+    {
+      "name": "example"
+    }
+  ],
+  "timezone": "Timezone('UTC')"
+}
+```
+  
