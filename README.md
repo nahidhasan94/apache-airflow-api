@@ -536,7 +536,7 @@ curl -X 'GET' \
   "total_entries": 2
 }
 ```
-### 1) Get a Task Instance.
+### 2) Get a Task Instance.
 **request:**
 ```
 curl -X 'GET' \
@@ -567,5 +567,19 @@ curl -X 'GET' \
   "task_id": "bash_task",
   "try_number": 1,
   "unixname": "airflow"
+}
+```
+### 3) Get logs for a specific task instance and its try number.
+**request:**
+```
+curl -X 'GET' \
+  'http://localhost:8080/api/v1/dags/example_trigger_target_dag/dagRuns/mydagrunid/taskInstances/bash_task/logs/2' \
+  -H 'accept: application/json'
+```
+ **response:**
+```
+{
+  "content": "[('e8031c60ce4b', '*** Log file does not exist: /opt/airflow/logs/example_trigger_target_dag/bash_task/2021-12-30T09:50:57.714516+00:00/2.log\\n*** Fetching from: http://e8031c60ce4b:8793/log/example_trigger_target_dag/bash_task/2021-12-30T09:50:57.714516+00:00/2.log\\n*** Failed to fetch log file from worker. 404 Client Error: NOT FOUND for url: http://e8031c60ce4b:8793/log/example_trigger_target_dag/bash_task/2021-12-30T09:50:57.714516+00:00/2.log\\nFor more information check: https://httpstatuses.com/404\\n')]",
+  "continuation_token": "eyJlbmRfb2ZfbG9nIjp0cnVlfQ.d-6y3O4KItEML9W1X_TIUnYKQ4Y"
 }
 ```
