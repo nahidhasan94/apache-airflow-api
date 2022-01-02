@@ -101,7 +101,7 @@ curl -X 'GET' \
 }
 ```
 
-### 3) Get a Dag Run
+### 3) Get a Dag Run (here, dag_run_id = mydagrunid)
 
 **request:**
 ```
@@ -125,7 +125,13 @@ curl -X 'GET' \
   "state": "success"
 }
 ```
-
+### 4) Delete a Dag Run (here, dag_run_id = manual__2021-12-30T08%3A14%3A54.700438%2B00%3A00)
+**request:**
+```
+curl -X 'DELETE' \
+  'http://localhost:8080/api/v1/dags/example_trigger_target_dag/dagRuns/manual__2021-12-30T08%3A14%3A54.700438%2B00%3A00' \
+  -H 'accept: */*'
+  ```
 ## DAG API
 ### 1) Get List of DAG.
 
@@ -331,7 +337,7 @@ curl -X 'GET' \
   "total_entries": 2
 }
 ```
-### 4) Get Simplified Representation of Task.
+### 4) Get Simplified Representation of Task. (here, task_id  = bash_task)
 
 **request:**
 ```
