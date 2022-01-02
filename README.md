@@ -421,4 +421,57 @@ curl -X 'PATCH' \
   ]
 }
  ```
- 
+  ### 6) Clears a set of task instances associated with the DAG for a specified date range.
+
+**request:**
+```
+ curl -X 'POST' \
+  'http://localhost:8080/api/v1/dags/example_trigger_target_dag/clearTaskInstances' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "dry_run": true,
+  "end_date": "2021-12-30 09:50:57+00:00",
+  "include_parentdag": true,
+  "include_subdags": true,
+  "only_failed": true,
+  "only_running": false,
+  "reset_dag_runs": true,
+  "start_date": "2021-12-30 09:50:57+00:00",
+  "task_ids": [
+    "string"
+  ]
+}'
+```
+ **response:**
+```
+{
+  "task_instances": []
+}
+```
+
+  ### 7) Updates the state for multiple task instances simultaneously.
+
+**request:**
+```
+curl -X 'POST' \
+  'http://localhost:8080/api/v1/dags/example_trigger_target_dag/updateTaskInstancesState' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "dry_run": true,
+  "execution_date": "2022-01-02T11:27:08.586627+00:00",
+  "include_downstream": true,
+  "include_future": true,
+  "include_past": true,
+  "include_upstream": true,
+  "new_state": "success",
+  "task_id": "bash_task"
+}'
+```
+ **response:**
+```
+{
+  "task_instances": []
+}
+```
