@@ -476,7 +476,7 @@ curl -X 'POST' \
 }
 ```
 ## TaskInstance APIs
-### 1) Get List Task Instance.
+### 1) Get List Task Instance. (here, dag_run_id = mydagrunid)
 **request:**
 ```
 curl -X 'GET' \
@@ -536,7 +536,7 @@ curl -X 'GET' \
   "total_entries": 2
 }
 ```
-### 2) Get a Task Instance.
+### 2) Get a Task Instance. (here, dag_run_id = mydagrunid,  task_id  = bash_task)
 **request:**
 ```
 curl -X 'GET' \
@@ -569,7 +569,7 @@ curl -X 'GET' \
   "unixname": "airflow"
 }
 ```
-### 3) Get logs for a specific task instance and its try number.
+### 3) Get logs for a specific task instance and its try number. (here, dag_run_id = mydagrunid,  task_id  = bash_task)
 **request:**
 ```
 curl -X 'GET' \
