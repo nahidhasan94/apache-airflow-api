@@ -1,7 +1,7 @@
 # apache-airflow-api
 
 (Here DAG Id = example_trigger_target_dag)
-## DAG Run API
+## DAG Run APIs
 ### 1) Trigger a new DAG run with Config.
 
 **request:**
@@ -132,7 +132,7 @@ curl -X 'DELETE' \
   'http://localhost:8080/api/v1/dags/example_trigger_target_dag/dagRuns/manual__2021-12-30T08%3A14%3A54.700438%2B00%3A00' \
   -H 'accept: */*'
   ```
-## DAG API
+## DAG APIs
 ### 1) Get List of DAG.
 
 **request:**
@@ -473,5 +473,99 @@ curl -X 'POST' \
 ```
 {
   "task_instances": []
+}
+```
+## TaskInstance APIs
+### 1) Get List Task Instance.
+**request:**
+```
+curl -X 'GET' \
+  'http://localhost:8080/api/v1/dags/example_trigger_target_dag/dagRuns/mydagrunid/taskInstances?limit=100' \
+  -H 'accept: application/json'
+
+```
+ **response:**
+```
+{
+  "task_instances": [
+    {
+      "dag_id": "example_trigger_target_dag",
+      "duration": 0.131413,
+      "end_date": "2021-12-30T09:51:00.954226+00:00",
+      "execution_date": "2021-12-30T09:50:57.714516+00:00",
+      "executor_config": "{}",
+      "hostname": "e8031c60ce4b",
+      "max_tries": 0,
+      "operator": "_PythonDecoratedOperator",
+      "pid": 1183,
+      "pool": "default_pool",
+      "pool_slots": 1,
+      "priority_weight": 1,
+      "queue": "default",
+      "queued_when": "2021-12-30T09:50:58.387937+00:00",
+      "sla_miss": null,
+      "start_date": "2021-12-30T09:51:00.822813+00:00",
+      "state": "success",
+      "task_id": "run_this",
+      "try_number": 1,
+      "unixname": "airflow"
+    },
+    {
+      "dag_id": "example_trigger_target_dag",
+      "duration": 0.222264,
+      "end_date": "2021-12-30T09:51:03.835433+00:00",
+      "execution_date": "2021-12-30T09:50:57.714516+00:00",
+      "executor_config": "{}",
+      "hostname": "e8031c60ce4b",
+      "max_tries": 0,
+      "operator": "BashOperator",
+      "pid": 1186,
+      "pool": "default_pool",
+      "pool_slots": 1,
+      "priority_weight": 1,
+      "queue": "default",
+      "queued_when": "2021-12-30T09:50:58.387937+00:00",
+      "sla_miss": null,
+      "start_date": "2021-12-30T09:51:03.613169+00:00",
+      "state": "success",
+      "task_id": "bash_task",
+      "try_number": 1,
+      "unixname": "airflow"
+    }
+  ],
+  "total_entries": 2
+}
+```
+### 1) Get a Task Instance.
+**request:**
+```
+curl -X 'GET' \
+  'http://localhost:8080/api/v1/dags/example_trigger_target_dag/dagRuns/mydagrunid/taskInstances/bash_task' \
+  -H 'accept: application/json'
+
+```
+ **response:**
+```
+  {
+  "dag_id": "example_trigger_target_dag",
+  "duration": 0.222264,
+  "end_date": "2021-12-30T09:51:03.835433+00:00",
+  "execution_date": "2021-12-30T09:50:57.714516+00:00",
+  "executor_config": "{}",
+  "hostname": "e8031c60ce4b",
+  "max_tries": 0,
+  "operator": "BashOperator",
+  "pid": 1186,
+  "pool": "default_pool",
+  "pool_slots": 1,
+  "priority_weight": 1,
+  "queue": "default",
+  "queued_when": "2021-12-30T09:50:58.387937+00:00",
+  "sla_miss": null,
+  "start_date": "2021-12-30T09:51:03.613169+00:00",
+  "state": "success",
+  "task_id": "bash_task",
+  "try_number": 1,
+  "unixname": "airflow"
 }
 ```
