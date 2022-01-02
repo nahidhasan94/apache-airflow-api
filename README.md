@@ -127,7 +127,84 @@ curl -X 'GET' \
 ```
 
 ## DAG API
-### 1) Get a Simplified Representation of DAG.
+### 1) Get List of DAG.
+
+**request:**
+```
+curl -X 'GET' \
+  'http://localhost:8080/api/v1/dags?limit=100&only_active=true' \
+  -H 'accept: application/json'
+```
+**response:**
+```
+{
+  "dags": [
+    {
+      "dag_id": "example_trigger_target_dag",
+      "description": null,
+      "file_token": "Ii9vcHQvYWlyZmxvdy9kYWdzL3BhcmFtZGFnLnB5Ig.hhWlYRe7zNQ_VEX9RUv6afx1pbs",
+      "fileloc": "/opt/airflow/dags/paramdag.py",
+      "is_active": true,
+      "is_paused": false,
+      "is_subdag": false,
+      "owners": [
+        "airflow"
+      ],
+      "root_dag_id": null,
+      "schedule_interval": null,
+      "tags": [
+        {
+          "name": "example"
+        }
+      ]
+    },
+    {
+      "dag_id": "hello_world",
+      "description": "Hello World DAG",
+      "file_token": "Ii9vcHQvYWlyZmxvdy9kYWdzL2hlbGxvLXdvcmxkLnB5Ig.EBqbQi-3Je7WvYG0GwtuXGN5UrY",
+      "fileloc": "/opt/airflow/dags/hello-world.py",
+      "is_active": true,
+      "is_paused": false,
+      "is_subdag": false,
+      "owners": [
+        "airflow"
+      ],
+      "root_dag_id": null,
+      "schedule_interval": {
+        "__type": "CronExpression",
+        "value": "0 12 * * *"
+      },
+      "tags": []
+    },
+    {
+      "dag_id": "tutorial",
+      "description": "A simple tutorial DAG",
+      "file_token": "Ii9vcHQvYWlyZmxvdy9kYWdzL3Rlc3QxLnB5Ig.ZfAACfnJFXtzC7so9yhfdo1IGKU",
+      "fileloc": "/opt/airflow/dags/test1.py",
+      "is_active": true,
+      "is_paused": true,
+      "is_subdag": false,
+      "owners": [
+        "airflow"
+      ],
+      "root_dag_id": null,
+      "schedule_interval": {
+        "__type": "TimeDelta",
+        "days": 1,
+        "microseconds": 0,
+        "seconds": 0
+      },
+      "tags": [
+        {
+          "name": "example"
+        }
+      ]
+    }
+  ],
+  "total_entries": 3
+}
+```
+### 2) Get a Simplified Representation of DAG.
 
 **request:**
 ```
@@ -166,7 +243,7 @@ curl -X 'GET' \
   "timezone": "Timezone('UTC')"
 }
 ```
-### 2) Get tasks of DAG.
+### 3) Get tasks of DAG.
 
 **request:**
 ```
@@ -254,3 +331,88 @@ curl -X 'GET' \
   "total_entries": 2
 }
 ```
+### 4) Get Simplified Representation of Task.
+
+**request:**
+```
+curl -X 'GET' \
+  'http://localhost:8080/api/v1/dags/example_trigger_target_dag/tasks/bash_task' \
+  -H 'accept: application/json'
+  
+ ```
+ **response:**
+```
+{
+  "class_ref": {
+    "class_name": "BashOperator",
+    "module_path": "airflow.operators.bash"
+  },
+  "depends_on_past": false,
+  "downstream_task_ids": [],
+  "end_date": null,
+  "execution_timeout": null,
+  "extra_links": [],
+  "owner": "airflow",
+  "params": {},
+  "pool": "default_pool",
+  "pool_slots": 1,
+  "priority_weight": 1,
+  "queue": "default",
+  "retries": 0,
+  "retry_delay": {
+    "__type": "TimeDelta",
+    "days": 0,
+    "microseconds": 0,
+    "seconds": 300
+  },
+  "retry_exponential_backoff": false,
+  "start_date": "2021-01-01T00:00:00+00:00",
+  "task_id": "bash_task",
+  "template_fields": [
+    "bash_command",
+    "env"
+  ],
+  "trigger_rule": "all_success",
+  "ui_color": "#f0ede4",
+  "ui_fgcolor": "#000",
+  "wait_for_downstream": false,
+  "weight_rule": "downstream"
+}
+ ```
+ 
+ ### 5) Update A DAG (Use to Pause the dag or UnPause the dag).
+
+**request:**
+```
+curl -X 'PATCH' \
+  'http://localhost:8080/api/v1/dags/example_trigger_target_dag' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "is_paused": false
+}'
+  
+```
+ **response:**
+```
+{
+  "dag_id": "example_trigger_target_dag",
+  "description": null,
+  "file_token": "Ii9vcHQvYWlyZmxvdy9kYWdzL3BhcmFtZGFnLnB5Ig.hhWlYRe7zNQ_VEX9RUv6afx1pbs",
+  "fileloc": "/opt/airflow/dags/paramdag.py",
+  "is_active": true,
+  "is_paused": false,
+  "is_subdag": false,
+  "owners": [
+    "airflow"
+  ],
+  "root_dag_id": null,
+  "schedule_interval": null,
+  "tags": [
+    {
+      "name": "example"
+    }
+  ]
+}
+ ```
+ 
