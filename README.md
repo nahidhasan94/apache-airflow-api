@@ -13,7 +13,7 @@ curl -X 'POST' \
   -d '{
   "dag_run_id": "mydagrunid",
   "execution_date": "2019-08-24T14:15:22Z",
-  "conf": "message":"nahid"}
+  "conf": {"message":"nahid"}
 }'
 ```
 **response:**
